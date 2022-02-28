@@ -9,4 +9,4 @@ This reposition contains the materials of the National Technical Olympiad from t
 * Grigorenko Arina - <b> 3D Artist </b>
 * Ignat Karelov-Suslov - <b> Full-Stack Develeper, C# programmer  </b>
 
-### To The Hell - game
+### To The Hell
