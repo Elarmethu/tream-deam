@@ -10,3 +10,6 @@ This reposition contains the materials of the National Technical Olympiad from t
 * Ignat Karelov-Suslov - <b> Full-Stack Develeper, C# programmer  </b>
 
 ### To The Hell
+###### logical line
+A collectible card game, 3D Rogue-like about the ancient Greek Orpheus, who descends into Hell for his beloved.
+###### 
