@@ -5,12 +5,12 @@ This reposition contains the materials of the National Technical Olympiad from t
 <b>You can use these materials for self-education as well.</b>
 
 ### The composition of the Tream Deam:
-* Zaychenko Sofia - <b> Team Lead, Game Designer </b>
+* Zaychenko Sofya - <b> Team Lead, Game Designer </b>
 * Grigorenko Arina - <b> 3D Artist </b>
 * Ignat Karelov-Suslov - <b> Full-Stack Develeper, C# programmer  </b>
 
 ### To The Hell
-###### logical line
+###### Logical line
 A collectible card game, 3D Rogue-like about the ancient Greek Orpheus, who descends into Hell for his beloved.
 ###### Synopsis
 Orpheus and Eurydice wanted to marry and were in the grove when the girl was bitten by a poisonous snake.
