@@ -1,0 +1,43 @@
+fileFormatVersion: 2
+guid: 4fc9c9e64dfd99443b9e7280639f7268
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Source Serif Pro
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 11c0b3f2c333a704f97062fed132d1a1, type: 3}
+  - {fileID: 12800000, guid: 5a68b9c712949d144a26ea32225518de, type: 3}
+  - {fileID: 12800000, guid: 3da2b8404d9c5ad4093c565f92b7abd3, type: 3}
+  - {fileID: 12800000, guid: 24ff25e6bb3d4f84aae86e0e714efa18, type: 3}
+  - {fileID: 12800000, guid: 7a217e3dcb96c20429092ef5afbbf0a3, type: 3}
+  - {fileID: 12800000, guid: 38bb52784a1ab6f429a7fdf0831fcbac, type: 3}
+  - {fileID: 12800000, guid: 82c8022ba1c7af448877e5aea79082d7, type: 3}
+  - {fileID: 12800000, guid: d75f1983d3915804390d81d3d5615df9, type: 3}
+  - {fileID: 12800000, guid: 103ced613f9894f428fcd740b0df53d8, type: 3}
+  - {fileID: 12800000, guid: 836e4849a8a90dc458650797a549012f, type: 3}
+  - {fileID: 12800000, guid: e1adab1975db071429efac2d95f4a136, type: 3}
+  - {fileID: 12800000, guid: e174b43687abff240824033dc1e426c4, type: 3}
+  - {fileID: 12800000, guid: d806ad48c2a84f248a31d021b828bd3e, type: 3}
+  - {fileID: 12800000, guid: 9ea6a2945903beb42907bc38801f4ad1, type: 3}
+  - {fileID: 12800000, guid: 5a3b021ed2409be4a9005fa486c4ec75, type: 3}
+  - {fileID: 12800000, guid: 6be41f22972f75b438fa769b81710fa1, type: 3}
+  - {fileID: 12800000, guid: 498c1dc6962333b48a7bc0a07b0c4805, type: 3}
+  - {fileID: 12800000, guid: 9bc6d55d18cea1543b74f585cb1aaf93, type: 3}
+  - {fileID: 12800000, guid: 22c28409008a9d04ba8c6651fff2c7ff, type: 3}
+  - {fileID: 12800000, guid: d2883f3835591ab4baab5fd006ab708f, type: 3}
+  - {fileID: 12800000, guid: f1bfc079cfa186640b81300857b1a7f8, type: 3}
+  - {fileID: 12800000, guid: 0e638478240b2964386f6b7bb4dbc935, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
