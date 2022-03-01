@@ -21,6 +21,11 @@ public class CardCell : MonoBehaviour
     public bool Initilized;
     public bool Choosed;
 
+    // Mobile input system
+    private float mb_timerInput;
+    private bool isView;
+
+
     public void InitializeCard()
     {
         iconCell.sprite = data.Icon;
@@ -35,6 +40,7 @@ public class CardCell : MonoBehaviour
             GameObject.Find("EventSystem").GetComponent<CardLogic>().CardUse(this);
     }
 
+#if UNITY_EDITOR || UNITY_STANDALONE
     private void OnMouseEnter()
     {
         transform.position = Vector3.Lerp(transform.position, ViewPos.position, 0.5f);
@@ -47,6 +53,32 @@ public class CardCell : MonoBehaviour
     {
         transform.position = Vector3.Lerp(transform.position, NullPos.position, 0.5f);
     }
+#elif UNITY_ANDROID
 
-    
+    private void Update()
+    {
+        if(Input.touchCount > 0)
+        {
+            mb_timerInput += Time.deltaTime;
+            
+            if(mb_timerInput >= 0.5f && !isView)
+            {
+                transform.position = Vector3.Lerp(transform.position, ViewPos.position, 0.5f);   
+                Game.Instance.source.clip = ViewAudio;
+                Game.Instance.source.Play();
+                isView = true;
+            }
+        }
+        else
+        {
+            if (isView)
+            {
+                mb_timerInput = 0.0f;
+                transform.position = Vector3.Lerp(transform.position, NullPos.position, 0.5f);
+                isView = false;
+            }
+        }
+    }
+
+#endif
 }
