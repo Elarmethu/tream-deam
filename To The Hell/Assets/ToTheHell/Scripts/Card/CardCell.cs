@@ -45,7 +45,9 @@ public class CardCell : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         } else 
         {
             if (PlayerLogic.Instance.canMotion)
+            {
                 CardLogic.Instance.CardUse(this);
+            }
         }
 
         isPressed = false;
@@ -63,12 +65,12 @@ public class CardCell : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     private void Update()
     {
         mb_timerInput = isPressed ? mb_timerInput += Time.deltaTime : 0.0f;
-        
-        if(mb_timerInput >= 0.5f && !isView)
+
+        if (mb_timerInput >= 0.5f && !isView)
         {
             transform.position = Vector3.Lerp(transform.position, ViewPos.position, 0.5f);
             isView = true;
-            
+
             Game.Instance.source.clip = ViewAudio;
             Game.Instance.source.Play();
         }

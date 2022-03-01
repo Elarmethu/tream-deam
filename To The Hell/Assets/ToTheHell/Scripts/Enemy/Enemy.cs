@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class Enemy : MonoBehaviour
@@ -16,6 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private GameObject shieldObj;
     [SerializeField] private Text shieldText;
+    [SerializeField] private Button chooseButton;
 
     private int shield;
     private int health;
@@ -32,7 +32,11 @@ public class Enemy : MonoBehaviour
         viewModel.sprite = data.Model;
         health = data.Health;
         isDead = false;
-    } 
+        chooseButton.onClick.AddListener(() => ChooseEnemy());
+
+        UpdateHealth();
+        UpdateShield();
+    }
 
     private void Dead()
     {
@@ -79,6 +83,9 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        UpdateHealth(); // UI UPDATE
+        UpdateShield(); // UI UPDATE
+
         if (logicEnemy.EnemiesDeadCheck())
         {
             Game.Instance.NextLevel();
@@ -88,9 +95,11 @@ public class Enemy : MonoBehaviour
     public void TakeHealth(int health)
     {
         this.health += health;
-        
+
         if (this.health > data.Health)
             this.health = data.Health;
+
+        UpdateHealth();
     }
 
     public void TakeShield(int shield)
@@ -99,6 +108,8 @@ public class Enemy : MonoBehaviour
 
         if (this.shield > data.ShieldMax)
             this.shield = data.ShieldMax;
+
+        UpdateShield();
     }
 
     public int GetShiled()
@@ -106,50 +117,42 @@ public class Enemy : MonoBehaviour
         return shield;
     }
 
-    private void Update()
+    private void UpdateHealth()
     {
-        if (data != null)
+        healthBar.value = Mathf.Clamp01((float)health / data.Health);
+        healthText.text = string.Format("{0}/{1}", health, data.Health);
+    }
+
+    private void UpdateShield()
+    {
+        if (shield > 0)
         {
-            healthBar.value = Mathf.Clamp01((float)health / data.Health);
-            healthText.text = string.Format("{0}/{1}", health, data.Health);
+            if (!shieldObj.activeSelf)
+                shieldObj.SetActive(true);
 
-            if (shield > 0)
-            {
-                if (!shieldObj.activeSelf)
-                    shieldObj.SetActive(true);
-
-                shieldText.text = $"{shield}";
-            } else
-            {
-                if(shieldObj.activeSelf)
-                    shieldObj.SetActive(false);
-            }
+            shieldText.text = $"{shield}";
+        }
+        else
+        {
+            if (shieldObj.activeSelf)
+                shieldObj.SetActive(false);
         }
     }
+
 
     /// <summary>
     /// Когда мы выбрали карту атаки, у нас появляется доступ,
     /// к выбору врага -> выбирая его мы наносим ему урон.
     /// </summary>
-    private void OnMouseDown()
+
+
+
+    public void ChooseEnemy()
     {
         if (logic.AttackEnemy)
         {
             logic.AttackEnemy = false;
             logic.ChoosedEnemy.Add(this);
-            gameObject.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 0.0f);
-        } 
-    }
-
-    private void OnMouseEnter()
-    {
-        if (logic.AttackEnemy)
-            gameObject.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 0.02f);
-    }
-
-    private void OnMouseExit()
-    {
-        if (logic.AttackEnemy)
-            gameObject.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 0.0f);
+        }
     }
 }
