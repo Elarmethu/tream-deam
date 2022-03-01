@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class CardCell : MonoBehaviour
+public class CardCell : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
     [Header("Main")]
     public CardData data;
@@ -10,75 +11,66 @@ public class CardCell : MonoBehaviour
     [SerializeField] private Image iconCell;
     [SerializeField] private Text nameCell;
     [SerializeField] private Text descriptionCell;
-    [SerializeField] private Text costCell;
-    [SerializeField] private Button buttonCell;
     
     [Header("Inspection")]
     [SerializeField] private Transform ViewPos;
     [SerializeField] private Transform NullPos;
     public AudioClip ViewAudio;
 
-    public bool Initilized;
-    public bool Choosed;
-
     // Mobile input system
     private float mb_timerInput;
     private bool isView;
+    private bool isPressed;
 
 
     public void InitializeCard()
     {
         iconCell.sprite = data.Icon;
         nameCell.text = data.Name;
-        descriptionCell.text = data.Desription;
-        
-    }
-    
-    public void CardUse()
-    {
-        if (GameObject.Find("EventSystem").GetComponent<PlayerLogic>().canMotion)
-            GameObject.Find("EventSystem").GetComponent<CardLogic>().CardUse(this);
+        descriptionCell.text = data.Desription.Replace("<br>", "\n");        
     }
 
-#if UNITY_EDITOR || UNITY_STANDALONE
-    private void OnMouseEnter()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        transform.position = Vector3.Lerp(transform.position, ViewPos.position, 0.5f);
-
-        Game.Instance.source.clip = ViewAudio;
-        Game.Instance.source.Play();
+        isPressed = true;
     }
 
-    private void OnMouseExit()
+    public void OnPointerUp(PointerEventData eventData)
     {
-        transform.position = Vector3.Lerp(transform.position, NullPos.position, 0.5f);
+        if(mb_timerInput >= 0.5f && isView)
+        {
+            isView = false;
+            mb_timerInput = 0.0f;
+            transform.position = Vector3.Lerp(transform.position, NullPos.position, 0.5f);
+        } else 
+        {
+            if (PlayerLogic.Instance.canMotion)
+                CardLogic.Instance.CardUse(this);
+        }
+
+        isPressed = false;
     }
-#elif UNITY_ANDROID
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (mb_timerInput >= 0.5f && isView)
+        {
+            isView = false;
+            transform.position = Vector3.Lerp(transform.position, NullPos.position, 0.5f);
+        }
+    }
 
     private void Update()
     {
-        if(Input.touchCount > 0)
+        mb_timerInput = isPressed ? mb_timerInput += Time.deltaTime : 0.0f;
+        
+        if(mb_timerInput >= 0.5f && !isView)
         {
-            mb_timerInput += Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, ViewPos.position, 0.5f);
+            isView = true;
             
-            if(mb_timerInput >= 0.5f && !isView)
-            {
-                transform.position = Vector3.Lerp(transform.position, ViewPos.position, 0.5f);   
-                Game.Instance.source.clip = ViewAudio;
-                Game.Instance.source.Play();
-                isView = true;
-            }
-        }
-        else
-        {
-            if (isView)
-            {
-                mb_timerInput = 0.0f;
-                transform.position = Vector3.Lerp(transform.position, NullPos.position, 0.5f);
-                isView = false;
-            }
+            Game.Instance.source.clip = ViewAudio;
+            Game.Instance.source.Play();
         }
     }
-
-#endif
 }
