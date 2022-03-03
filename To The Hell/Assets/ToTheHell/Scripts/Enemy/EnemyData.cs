@@ -7,6 +7,7 @@ public class EnemyData : ScriptableObject
 {    
     public int Health;
     public int ShieldMax;
+    public float k;
 
     public EnemyCardData MotionData;
 

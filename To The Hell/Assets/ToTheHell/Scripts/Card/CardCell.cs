@@ -49,7 +49,7 @@ public class CardCell : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         logoCard.sprite = data.Icon;
         evredikaCost.color = backgroundCard.sprite != withAttackSprite ? new Color32(162, 162, 162, 255) : new Color32(24, 24, 24, 255);
         levelCard.color = backgroundCard.sprite != withAttackSprite ? new Color32(162, 162, 162, 255) : new Color32(24, 24, 24, 255);
-        nameCard.color = backgroundCard.sprite != withAttackSprite ? new Color32(162, 162, 162, 255) : new Color32(24, 24, 24, 255);
+        nameCard.color = backgroundCard.sprite == withAttackSprite ? new Color32(162, 162, 162, 255) : new Color32(24, 24, 24, 255);
 
         if(data.Poison.damage > 0)
         {
@@ -128,6 +128,9 @@ public class CardCell : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             if (PlayerLogic.Instance.canMotion)
             {
                 CardLogic.Instance.CardUse(this);
+
+                if (Game.Instance.isTutorial)
+                    Game.Instance.NextTutorial();
             }
         }
 

@@ -6,9 +6,9 @@ public class EnemyLogic : MonoBehaviour
 {
     [SerializeField] private Game gameLogic;
     [SerializeField] private PlayerLogic Player;
-    [SerializeField] private List<EnemyData> enemiesData;
+    public  List<EnemyData> enemiesData;
     [SerializeField] private List<Enemy> enemiesObject;
-    [SerializeField] private List<Enemy> initializedEnemyObject;
+    public List<Enemy> initializedEnemyObject;
 
     private List<Enemy> aliveEnemy = new List<Enemy>();
     public int PlayerDamage;
@@ -64,8 +64,10 @@ public class EnemyLogic : MonoBehaviour
             if (!initializedEnemyObject[i].isDead)
                 aliveEnemy.Add(initializedEnemyObject[i]);
         }
+        
 
         int rnd = Random.Range(0, aliveEnemy.Count);
+        Debug.Log(rnd);      
         StartCoroutine(Motion(aliveEnemy[rnd]));
     }
 
@@ -81,7 +83,7 @@ public class EnemyLogic : MonoBehaviour
         if (enemy.GetHealth() * 1.5f < Player.GetHealth())
             logic = Random.Range(-2, 2);
         
-        if (logic > 0)
+        if (logic > 0 && !enemy.isDead)
         {
             int rndAttack = Random.Range(0, 100);
             if(rndAttack <= 50)
@@ -111,7 +113,7 @@ public class EnemyLogic : MonoBehaviour
                 }
             }
         }
-        else
+        else if(!enemy.isDead)
         {
             if (enemy.GetHealth() == enemy.data.Health)
             {
@@ -164,7 +166,7 @@ public class EnemyLogic : MonoBehaviour
                     }
                 }
             }
-        }
+        } 
         
         gameLogic.EndMotionMonster();
     }

@@ -412,8 +412,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Bemol
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 93a6000899be35f4a944137ce9cf6e73, type: 2}
-  m_sharedMaterial: {fileID: 9136902683341658372, guid: 93a6000899be35f4a944137ce9cf6e73, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1ba22e7931bc48f469034ce34e4b2274, type: 2}
+  m_sharedMaterial: {fileID: -2683415719709851654, guid: 1ba22e7931bc48f469034ce34e4b2274, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

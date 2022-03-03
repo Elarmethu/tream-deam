@@ -43,6 +43,7 @@ public class CardLogic : MonoBehaviour
     public int PlayerDamage;
     public bool cardChoosed;
     public bool isChoosed;
+    public bool isTutorialStart;
 
     [Header("Poison")]
     public List<PoisonAttack> poisonAttacks;
@@ -81,28 +82,54 @@ public class CardLogic : MonoBehaviour
     }
     public void InitializeCard()
     {
-        GameObject cardObj = Instantiate(cardPrefab);
-        cardObj.transform.SetParent(content.transform);
-
-        RectTransform cardRect = cardObj.GetComponent<RectTransform>();
-        cardRect.localScale = new Vector3(1, 1, 1);
-        cardRect.localPosition = new Vector3(cardRect.transform.position.x, cardRect.transform.position.y, 0.0f);
-
-        if(containData.Count < 5)
+        if (!isTutorialStart)
         {
-            InitializeDatas();
-        }
+            GameObject cardObj = Instantiate(cardPrefab);
+            cardObj.transform.SetParent(content.transform);
 
-        int rnd = Random.Range(0, containData.Count);
-        CardCell cell = cardObj.GetComponentInChildren<CardCell>();
-        cell.data = containData[rnd];
-        cell.InitializeCard();
-        
-        initializeCard.Add(cardObj);
-        UpdateCardCells();
-  
-        initializeData.Add(containData[rnd]);
-        containData.Remove(containData[rnd]);
+            RectTransform cardRect = cardObj.GetComponent<RectTransform>();
+            cardRect.localScale = new Vector3(1, 1, 1);
+            cardRect.localPosition = new Vector3(cardRect.transform.position.x, cardRect.transform.position.y, 0.0f);
+
+            if (containData.Count < 5)
+            {
+                InitializeDatas();
+            }
+
+            int rnd = Random.Range(0, containData.Count);
+            CardCell cell = cardObj.GetComponentInChildren<CardCell>();
+            cell.data = containData[rnd];
+            cell.InitializeCard();
+
+            initializeCard.Add(cardObj);
+            UpdateCardCells();
+
+            initializeData.Add(containData[rnd]);
+            containData.Remove(containData[rnd]);
+        }
+        else
+        {
+            for(int i = 0; i < cardDatas.Count; i++)
+            {
+                GameObject cardObj = Instantiate(cardPrefab);
+                cardObj.transform.SetParent(content.transform);
+
+
+                RectTransform cardRect = cardObj.GetComponent<RectTransform>();
+                cardRect.localScale = new Vector3(1, 1, 1);
+                cardRect.localPosition = new Vector3(cardRect.transform.position.x, cardRect.transform.position.y, 0.0f);              
+
+                CardCell cell = cardObj.GetComponentInChildren<CardCell>();
+                cell.data = cardDatas[i];
+                cell.InitializeCard();
+
+                initializeCard.Add(cardObj);
+                UpdateCardCells();
+
+                initializeData.Add(cardDatas[i]);
+                isTutorialStart = false;
+            }
+        }
     }
 
     public void DestroyCard(GameObject card)
@@ -205,7 +232,7 @@ public class CardLogic : MonoBehaviour
 
     public void ComboPlayerCheck()
     {
-        if(useCardData.Count == 2)
+        if(useCardData.Count >= 2)
         {
             int countMajor = 0;
             int countMinor = 0;
@@ -309,7 +336,7 @@ public class CardLogic : MonoBehaviour
             if (!game.enemyLogic.EnemiesDeadCheck())
                 StartCoroutine(CardExplotation(combo));
             else
-                Game.Instance.NextLevel();
+                CardBaffLogic.Instance.InitializeBaff();
         } else
         {
             if (ComboType.PlayerGetEnemyHealth == combo)
@@ -318,7 +345,7 @@ public class CardLogic : MonoBehaviour
             comboChoosed = combo;
             
             if (Game.Instance.enemyLogic.EnemiesDeadCheck())
-                Game.Instance.NextLevel();
+                CardBaffLogic.Instance.InitializeBaff();
             else
             {
                 Game.Instance.NextMotion();

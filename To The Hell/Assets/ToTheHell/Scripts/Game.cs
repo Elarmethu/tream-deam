@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Game : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class Game : MonoBehaviour
     public AudioSource mouse;
 
     public bool playerMotion;
+    public bool isTutorial;
+
+    [SerializeField] private List<GameObject> tutorials;
 
     public void NextLevel()
     {
@@ -48,7 +52,7 @@ public class Game : MonoBehaviour
         if (!playerMotion)
         {
             if (enemyLogic.EnemiesDeadCheck())
-                NextLevel();
+                CardBaffLogic.Instance.InitializeBaff();
 
             playerMotion = true;
             Player.canMotion = true;
@@ -83,8 +87,15 @@ public class Game : MonoBehaviour
         playerMotion = true;
         Player.canMotion = true;
 
-        for(int i = 0; i < 5; i++)
+        if (!isTutorial)
         {
+            for (int i = 0; i < 5; i++)
+            {
+                cardLogic.InitializeCard();
+            }
+        } else
+        {
+            cardLogic.isTutorialStart = true;
             cardLogic.InitializeCard();
         }
 
@@ -97,14 +108,33 @@ public class Game : MonoBehaviour
         if (cardLogic.cardChoosed)
             NextLevel();
 
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            Debug.Log("HIT");
-            Player.TakeDamage(5);
-        }
-
         if (Input.GetMouseButton(0))
             mouse.Play();
+
+    }
+
+    public void NextTutorial()
+    {
+        int num = 0;
+        for(int i = 0; i < tutorials.Count; i++)
+        {
+            if (tutorials[i].activeSelf) {
+                num = i;
+                break;
+            }
+        }
+
+        if (num + 1 < tutorials.Count)
+        {
+            tutorials[num + 1].SetActive(true);
+            tutorials[num].SetActive(false);
+        }
+
+        if(num + 1 >= tutorials.Count)
+        {
+            tutorials[num].SetActive(false);
+            isTutorial = false;
+        }
 
     }
 }

@@ -15,5 +15,5 @@ MonoBehaviour:
   HealthMax: 55
   EvridikaMaxHealth: 10
   Health: 55
-  EvridikaHealth: 0
+  EvridikaHealth: 10
   Shield: 0

@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using TMPro;
 
-public class CardView : MonoBehaviour, IPointerClickHandler
+public class CardBaff : MonoBehaviour, IPointerDownHandler
 {
     [Header("Main")]
     public CardData data;
@@ -100,12 +100,8 @@ public class CardView : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
-        if (CardLogic.Instance.AttackEnemy)
-            CardLogic.Instance.AttackEnemy = false;
-
-        CardLogic.Instance.InitializeCardWithData(data);
-        CardLogic.Instance.DestroyViewCard(this.gameObject);
+        CardBaffLogic.Instance.ChooseBaff(this.data);
     }
 }

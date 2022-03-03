@@ -15,10 +15,12 @@ public class FirstScene : MonoBehaviour
     private bool animationChanged = false;
     private void Update()
     {
-        if(!animationChanged && orfeyDolly.m_Position >= 46.0f)
+        if(!animationChanged && orfeyDolly.m_Position >= 20.0f)
         {
             animationChanged = true;
+            
             woolfObject.SetActive(true);
+            StartCoroutine(FadeAway());
         }
     }
 
@@ -38,6 +40,20 @@ public class FirstScene : MonoBehaviour
             color.a = f;
             fade.color = color;
             yield return new WaitForSeconds(0.05f);
+        }       
+    }
+
+    public IEnumerator FadeAway() // P. T. Adamczyk & Olga Jankowska Never Fade Away(SAMURAI Cover) - so cool. Never fade away.... I so lucky lucky so lovely lovely I.
+    {
+
+        for (float f = 0.0f; f <= 1.0f; f += 0.05f)
+        {
+            Color color = fade.color;
+            color.a = f;
+            fade.color = color;
+            yield return new WaitForSeconds(0.05f);
         }
+
+        fade.color = new Color32(0, 0, 0, 255);
     }
 }
