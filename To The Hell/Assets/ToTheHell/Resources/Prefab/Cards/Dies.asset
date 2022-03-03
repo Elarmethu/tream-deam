@@ -27,6 +27,6 @@ MonoBehaviour:
   Poison:
     count: 2
     damage: 3
-  s_Evridika: 0
+  s_Evridika: 3
   Evridika: 3
   EmountMax: 2

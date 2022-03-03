@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 75
   ShieldMax: 25
-  k: 0.5
+  k: 1.5
   MotionData: {fileID: 11400000, guid: de9c05584a3cc1845af5787bbe3250f9, type: 2}
   Model: {fileID: 21300000, guid: b4fdd38d3f8a17d4dbbfc677d7d0dc01, type: 3}

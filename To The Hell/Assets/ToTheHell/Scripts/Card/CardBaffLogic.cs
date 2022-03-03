@@ -42,19 +42,19 @@ public class CardBaffLogic : MonoBehaviour
             k += enemyLogic.enemiesData[i].k;
 
         if(data.Damage > 0)
-            data.Damage += data.Damage * Mathf.CeilToInt(k);
+            data.Damage += Mathf.CeilToInt(k);
 
         if(data.Health > 0)
-            data.Health += data.Health * Mathf.CeilToInt(k);
+            data.Health +=  Mathf.CeilToInt(k);
 
         if (data.Shield > 0)
-            data.Shield += data.Shield * Mathf.CeilToInt(k);
+            data.Shield += Mathf.CeilToInt(k);
 
         if (data.Evridika < 0)
-            data.Evridika -= data.Evridika * Mathf.CeilToInt(k);
+            data.Evridika -= Mathf.CeilToInt(k);
 
         if (data.Poison.damage > 0)
-            data.Poison.damage  += data.Poison.damage * Mathf.CeilToInt(k);
+            data.Poison.damage  += Mathf.CeilToInt(k);
 
         chooseObject.SetActive(false);
         Game.Instance.NextLevel();
