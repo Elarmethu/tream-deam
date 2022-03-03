@@ -14,8 +14,6 @@ public class CardData : ScriptableObject
     public int Damage;
     public Poison Poison;
     public int Evridika;
-    
-    
     public int EmountMax;
 }
 

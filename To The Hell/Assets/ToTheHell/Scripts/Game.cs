@@ -54,7 +54,7 @@ public class Game : MonoBehaviour
             Player.canMotion = true;
             cardLogic.CardTransfer(true);
             
-            if(ComboType.NotShieldReset == CardLogic.Instance.comboChoosed)
+            if(ComboType.NotShieldReset != CardLogic.Instance.comboChoosed)
                 Player.ResetSheild();
 
             for (int i = 0; i < 5; i++)

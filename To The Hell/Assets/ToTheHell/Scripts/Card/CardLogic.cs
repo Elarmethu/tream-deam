@@ -342,10 +342,10 @@ public class CardLogic : MonoBehaviour
 [System.Serializable]
 public enum ComboType
 {
-    GetBoostForAttack = 0,
-    NotShieldReset = 1,
-    PlayerGetEnemyHealth = 2,
-    Nothing = 3
+    Nothing = 0,
+    GetBoostForAttack = 1,
+    NotShieldReset = 2,
+    PlayerGetEnemyHealth = 3
 }
 
 [System.Serializable]

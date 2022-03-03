@@ -1483,6 +1483,8 @@ GameObject:
   - component: {fileID: 1436613653}
   - component: {fileID: 1436613652}
   - component: {fileID: 1436613694}
+  - component: {fileID: 1436613695}
+  - component: {fileID: 1436613696}
   m_Layer: 0
   m_Name: AfterCat
   m_TagString: Untagged
@@ -1739,7 +1741,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 85.360794
-    y: 353.45416
+    y: 354.48508
     width: 62.37113
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2242,8 +2244,7 @@ MonoBehaviour:
     \u043F\u0440\u043E\u0442\u044F\u0436\u0435\u043D\u0438\u0438 500 \u043B\u0435\u0442,
     \u043A\u043E\u043B\u0434\u043E\u0432\u0430\u043B \u043F\u043E-\u043D\u0435\u043C\u043D\u043E\u0433\u0443,
     \u043A\u043E\u043C\u0443 \u043F\u043E\u0440\u0447\u0443 \u043D\u0430\u043A\u0438\u043D\u0443
-    \u0438 \u0432 \u0442\u0430\u043A\u043E\u043C \u0434\u0443\u0445\u0435, \u0432
-    \u043E\u0431\u0449\u0435\u043C \u0432\u0435\u043B \u0441\u0435\u0431\u044F \u0447\u0443\u0434\u0435\u0441\u043D\u043E."
+    \u0438 \u0432 \u0442\u0430\u043A\u043E\u043C \u0434\u0443\u0445\u0435..."
   description: 
   character: {fileID: 89159065}
   portrait: {fileID: 0}
@@ -2271,7 +2272,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 81.68044
-    y: 225.46394
+    y: 224.43301
     width: 60
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2282,6 +2283,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1436613678}
+  - {fileID: 1436613696}
   - {fileID: 1436613677}
   - {fileID: 1436613676}
   - {fileID: 1436613673}
@@ -2440,7 +2442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 166.3093
+    x: 165.27837
     y: 147
     width: 175.7732
     height: 40
@@ -2470,7 +2472,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -113.9382
-    y: 143.81442
+    y: 142.7835
     width: 178.86598
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2529,9 +2531,7 @@ MonoBehaviour:
     \u0431\u0443\u0434\u0443, \u0432\u044B\u043B\u0438\u0437\u044B\u0432\u0430\u0442\u044C
     \u043D\u0430\u0443\u0447\u0443, \u043A\u0430\u043A \u0437\u0430\u043F\u0430\u0447\u043A\u0430\u0435\u0448\u044C\u0441\u044F
     - \u044D\u0442\u043E\u0433\u043E \u0442\u0443\u0442 \u0431\u043E\u043B\u044C\u0448\u0435
-    \u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u0443\u043C\u0435\u0435\u0442. \u0414\u0430
-    \u0438 \u043F\u0440\u043E \u0434\u0435\u043C\u043E\u043D\u043E\u0432 \u0437\u0434\u0435\u0448\u043D\u0438\u0445
-    \u0440\u0430\u0441\u0441\u043A\u0430\u0437\u0430\u0442\u044C \u043C\u043E\u0433\u0443."
+    \u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u0443\u043C\u0435\u0435\u0442. "
   description: 
   character: {fileID: 565941206}
   portrait: {fileID: 0}
@@ -2662,6 +2662,7 @@ MonoBehaviour:
   - {fileID: 1436613691}
   - {fileID: 1436613690}
   - {fileID: 1436613688}
+  - {fileID: 1436613695}
   - {fileID: 1436613689}
   - {fileID: 1436613687}
   - {fileID: 1436613682}
@@ -2692,7 +2693,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 1436613661}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 1436613657}
   variables: []
   description: 
   stepPause: 0
@@ -2706,7 +2708,7 @@ MonoBehaviour:
   luaBindingName: flowchart
 --- !u!114 &1436613694
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -2719,6 +2721,63 @@ MonoBehaviour:
   itemId: 52
   indentLevel: 0
   sayDialog: {fileID: 913347007}
+--- !u!114 &1436613695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436613650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 53
+  indentLevel: 0
+  storyText: "\u0414\u0430 \u0438 \u043F\u0440\u043E \u0434\u0435\u043C\u043E\u043D\u043E\u0432
+    \u0437\u0434\u0435\u0448\u043D\u0438\u0445 \u0440\u0430\u0441\u0441\u043A\u0430\u0437\u0430\u0442\u044C
+    \u043C\u043E\u0433\u0443."
+  description: 
+  character: {fileID: 565941206}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1436613696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436613650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 54
+  indentLevel: 0
+  storyText: "\u0412 \u043E\u0431\u0449\u0435\u043C \u0432\u0435\u043B \u0441\u0435\u0431\u044F
+    \u0447\u0443\u0434\u0435\u0441\u043D\u043E!"
+  description: 
+  character: {fileID: 89159065}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
 --- !u!1 &1454556894
 GameObject:
   m_ObjectHideFlags: 0
