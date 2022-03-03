@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public EnemyLogic logicEnemy;
     public Game game;
 
-    [SerializeField] private SpriteRenderer viewModel;
+    [SerializeField] private GameObject viewModel;
     [SerializeField] private Slider healthBar;
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private GameObject shieldObj;
@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
 
     public void Initialize()
     {
-        viewModel.sprite = data.Model;
+        //viewModel.sprite = data.Model;
         health = data.Health;
         isDead = false;
         chooseButton.onClick.AddListener(() => ChooseEnemy());
