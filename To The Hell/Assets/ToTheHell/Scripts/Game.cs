@@ -28,7 +28,7 @@ public class Game : MonoBehaviour
     public void EndMotionPlayer()
     {
         if (playerMotion && !cardLogic.AttackEnemy)
-            cardLogic.StartCoroutine(cardLogic.CardExplotation());
+            cardLogic.ComboPlayerCheck();
     }
 
     public void NextMotion()
@@ -47,10 +47,15 @@ public class Game : MonoBehaviour
     {
         if (!playerMotion)
         {
+            if (enemyLogic.EnemiesDeadCheck())
+                NextLevel();
+
             playerMotion = true;
             Player.canMotion = true;
             cardLogic.CardTransfer(true);
-            Player.ResetSheild();
+            
+            if(ComboType.NotShieldReset == CardLogic.Instance.comboChoosed)
+                Player.ResetSheild();
 
             for (int i = 0; i < 5; i++)
             {

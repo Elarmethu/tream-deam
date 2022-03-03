@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CardLogic : MonoBehaviour
-{   
+{
+    public static CardLogic Instance;
+    
     [Header("Prefabs")]
     public PlayerLogic Player;
     public Game game;
 
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject reviewPrefab;
-    [SerializeField] private GameObject additionalPerfab;
     [SerializeField] private List<CardData> cardDatas;
     [SerializeField] private List<CardData> additionalDatas;
     
@@ -34,12 +35,26 @@ public class CardLogic : MonoBehaviour
     public CardData attackCard;
     public List<Enemy> ChoosedEnemy;
 
+    [Header("ComboSystem")]
+    public ComboType comboChoosed;
 
     [Header("Logic")]
     public bool AttackEnemy;
     public int PlayerDamage;
     public bool cardChoosed;
     public bool isChoosed;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else if(Instance != this)
+        {
+            Destroy(Instance.gameObject);
+            Instance = this;
+        }
+    }
+
 
     #region card
     public void InitializeDatas()
@@ -83,10 +98,7 @@ public class CardLogic : MonoBehaviour
         
         initializeCard.Add(cardObj);
         UpdateCardCells();
-
-        if (initializeCard.Count % 2 == 0) RotationCard(true);
-        else RotationCard(false);
-
+  
         initializeData.Add(containData[rnd]);
         containData.Remove(containData[rnd]);
     }
@@ -94,22 +106,7 @@ public class CardLogic : MonoBehaviour
     public void DestroyCard(GameObject card)
     {
         initializeCard.Remove(card);
-        
-        if (initializeCard.Count % 2 == 0) RotationCard(true);
-        else RotationCard(false);
-
         Destroy(card);
-    }
-
-    private void RotationCard(bool even)
-    {
-        for (int i = 0; i < initializeCard.Count; i++)
-        {
-            int angle = (initializeCard.Count / 2 * (10)) - (i * (10));
-            if ((angle == 0 || i >= initializeCard.Count / 2) && even) angle -= 10;
-
-            initializeCard[i].transform.rotation = Quaternion.Euler(initializeCard[i].transform.eulerAngles.x, initializeCard[i].transform.eulerAngles.y, angle);
-        }
     }
 
     public void CardUse(CardCell card)
@@ -128,6 +125,7 @@ public class CardLogic : MonoBehaviour
             CardView view = obj.GetComponentInChildren<CardView>();
             view.data = card.data;
             view.InitializeCard();
+
 
             initializeData.Remove(card.data);
             DestroyCard(card.transform.parent.gameObject);
@@ -170,7 +168,72 @@ public class CardLogic : MonoBehaviour
 
     }
 
-    public IEnumerator CardExplotation()
+
+    public void ComboPlayerCheck()
+    {
+        if(useCardData.Count == 2)
+        {
+            int countMajor = 0;
+            int countMinor = 0;
+
+            for (int i = 0; i < useCardData.Count; i++)
+            {
+                switch (useCardData[i].Name)
+                {
+                    case "Major":
+                        countMajor += 1;
+                        break;
+                    case "Minor":
+                        countMinor += 1;
+                        break;
+                }
+            }
+
+            if (countMajor == 2)
+                StartCoroutine(CardExplotation(ComboType.NotShieldReset));
+            else if (countMinor == 2)
+                StartCoroutine(CardExplotation(ComboType.GetBoostForAttack));
+            else
+                StartCoroutine(CardExplotation(ComboType.Nothing));
+
+        } else if(useCardData.Count >= 4)
+        {
+            int countMajor = 0;
+            int countMinor = 0;
+            int countDies = 0;
+            int countBemol = 0;
+
+            for(int i = 0; i < useCardData.Count; i++)
+            {
+                switch (useCardData[i].Name)
+                {
+                    case "Major":
+                        countMajor += 1;
+                        break;
+                    case "Minor":
+                        countMinor += 1;
+                        break;
+                    case "Dies":
+                        countDies += 1;
+                        break;
+                    case "Bemol":
+                        countBemol += 1;
+                        break;
+                }
+            }
+
+            if (countMajor >= 1 && countMinor >= 1 && countDies >= 1 && countBemol >= 1)
+                StartCoroutine(CardExplotation(ComboType.PlayerGetEnemyHealth));
+            else
+                StartCoroutine(CardExplotation(ComboType.Nothing));
+
+        } else
+        {
+            StartCoroutine(CardExplotation(ComboType.Nothing));
+        }
+    }
+
+    private IEnumerator CardExplotation(ComboType combo)
     {
         yield return new WaitForSeconds(1f);
         
@@ -181,7 +244,8 @@ public class CardLogic : MonoBehaviour
 
             if (useCardData[0].Damage > 0)
             {
-                ChoosedEnemy[0].TakeDamage(useCardData[0].Damage);
+                if(ComboType.GetBoostForAttack == combo) ChoosedEnemy[0].TakeDamage(Mathf.CeilToInt(useCardData[0].Damage * 1.5f));
+                else ChoosedEnemy[0].TakeDamage(useCardData[0].Damage);
                 ChoosedEnemy.RemoveAt(0);
             }
 
@@ -189,17 +253,35 @@ public class CardLogic : MonoBehaviour
             if (Player.GetEvridika() <= 0)
                 Player.TakeDamage(100);
 
-            useCardData.RemoveAt(0);
-            Destroy(useCardObj[0]);
-            useCardObj.RemoveAt(0);
+            if (useCardData.Count > 0) 
+            {
+                useCardData.RemoveAt(0);
+                Destroy(useCardObj[0]);
+                useCardObj.RemoveAt(0);
+            }
 
-            StartCoroutine(CardExplotation());
+            if (!game.enemyLogic.EnemiesDeadCheck())
+                StartCoroutine(CardExplotation(combo));
         } else
         {
-            Game.Instance.NextMotion();
+            if (ComboType.PlayerGetEnemyHealth == combo)
+                Player.GiveHealth(PlayerDamage);
+
+            comboChoosed = combo;
+            if(Game.Instance.enemyLogic.EnemiesDeadCheck())
+                Game.Instance.NextLevel();
+            else
+                Game.Instance.NextMotion();
         }
-    }
-
-
+    } 
     #endregion
+}
+
+[System.Serializable]
+public enum ComboType
+{
+    GetBoostForAttack = 0,
+    NotShieldReset = 1,
+    PlayerGetEnemyHealth = 2,
+    Nothing = 3
 }
