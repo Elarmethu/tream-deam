@@ -95,8 +95,18 @@ public class Game : MonoBehaviour
             }
         } else
         {
+            foreach (var data in cardLogic.cardDatas)
+            {
+                data.Shield = data.s_Shield;
+                data.Damage = data.s_Damage;
+                data.Health = data.s_Health;
+                data.Poison = data.s_Poison;
+                data.Evridika = data.s_Evridika;
+            }
+
             cardLogic.isTutorialStart = true;
             cardLogic.InitializeCard();
+
         }
 
         //Enemy initialize

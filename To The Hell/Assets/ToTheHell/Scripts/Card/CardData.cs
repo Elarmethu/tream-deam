@@ -9,11 +9,21 @@ public class CardData : ScriptableObject
     public int Level;
     public string Name;
 
+    public int s_Shield;
     public int Shield;
+
+    public int s_Health;
     public int Health;
+
+    public int s_Damage;
     public int Damage;
+
+    public Poison s_Poison;
     public Poison Poison;
+
+    public int s_Evridika;
     public int Evridika;
+
     public int EmountMax;
 }
 

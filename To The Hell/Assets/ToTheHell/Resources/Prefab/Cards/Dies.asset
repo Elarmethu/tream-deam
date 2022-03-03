@@ -15,11 +15,18 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 2a18988cdb863ec43996185fafebe7fe, type: 3}
   Level: 1
   Name: Dies
+  s_Shield: 0
   Shield: 0
+  s_Health: 0
   Health: 0
+  s_Damage: 0
   Damage: 0
+  s_Poison:
+    count: 2
+    damage: 3
   Poison:
     count: 2
     damage: 3
+  s_Evridika: 0
   Evridika: 3
   EmountMax: 2

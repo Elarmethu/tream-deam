@@ -12,7 +12,7 @@ public class CardLogic : MonoBehaviour
 
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject reviewPrefab;
-    [SerializeField] private List<CardData> cardDatas;
+    public List<CardData> cardDatas;
     [SerializeField] private List<CardData> additionalDatas;
     
     [SerializeField] private List<CardData> containData;
