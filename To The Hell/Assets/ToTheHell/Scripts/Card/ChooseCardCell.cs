@@ -19,7 +19,6 @@ public class ChooseCardCell : MonoBehaviour
     {
         iconCell.sprite = data.Icon;
         nameCell.text = data.Name;
-        descriptionCell.text = data.Desription;
     }
 
     public void CardChoose()

@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8580dff81e344a544a7df6e9278f3b63, type: 3}
   m_Name: Major
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: a90aecd5c9922974cbaa391c76be33d0, type: 3}
+  Icon: {fileID: 21300000, guid: ba7f9d89144d8b148a20ed995f967ef0, type: 3}
+  Level: 1
   Name: Major
-  Desription: "\u0429\u0438\u0442\u044B: +5 \u042D\u0432\u0440\u0435\u0434\u0438\u043A\u0430:
-    -1"
   Shield: 5
   Health: 0
   Damage: 0

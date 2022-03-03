@@ -151,10 +151,10 @@ public class Enemy : MonoBehaviour
 
     public void ChooseEnemy()
     {
-        if (logic.AttackEnemy)
+        if (CardLogic.Instance.AttackEnemy)
         {
-            logic.AttackEnemy = false;
-            logic.ChoosedEnemy.Add(this);
+            CardLogic.Instance.AttackEnemy = false;
+            CardLogic.Instance.ChoosedEnemy.Add(this);
         }
     }
 }

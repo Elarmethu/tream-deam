@@ -76,7 +76,6 @@ public class CardLogic : MonoBehaviour
             cardCells.Add(initializeCard[i].GetComponentInChildren<CardCell>());
         }
     }
-
     public void InitializeCard()
     {
         GameObject cardObj = Instantiate(cardPrefab);
@@ -119,8 +118,7 @@ public class CardLogic : MonoBehaviour
             obj.transform.SetParent(reviewTransformField.transform);
 
             RectTransform rect = obj.GetComponent<RectTransform>();
-            rect.localScale = Vector3.one;
-            rect.localPosition = new Vector3(rect.transform.position.x, rect.transform.position.y, 0.0f);
+            rect.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
             CardView view = obj.GetComponentInChildren<CardView>();
             view.data = card.data;
@@ -155,6 +153,39 @@ public class CardLogic : MonoBehaviour
             initializeData.Clear();
         }
     }
+
+    public void InitializeCardWithData(CardData data)
+    {
+        GameObject cardObj = Instantiate(cardPrefab);
+        cardObj.transform.SetParent(content.transform);
+
+        RectTransform cardRect = cardObj.GetComponent<RectTransform>();
+        cardRect.localScale = new Vector3(1, 1, 1);
+        cardRect.localPosition = new Vector3(cardRect.transform.position.x, cardRect.transform.position.y, 0.0f);
+
+        if (containData.Count < 5)
+        {
+            InitializeDatas();
+        }
+
+        CardCell cell = cardObj.GetComponentInChildren<CardCell>();
+        cell.data = data;
+        cell.InitializeCard();
+
+        initializeCard.Add(cardObj);
+        UpdateCardCells();
+
+        initializeData.Add(data);
+        containData.Remove(data);
+    }
+
+    public void DestroyViewCard(GameObject card)
+    {
+        useCardData.Remove(card.GetComponent<CardView>().data);
+        useCardObj.Remove(card);
+        Destroy(card);
+    }
+
     #endregion
 
     #region ComboSystem
@@ -262,6 +293,8 @@ public class CardLogic : MonoBehaviour
 
             if (!game.enemyLogic.EnemiesDeadCheck())
                 StartCoroutine(CardExplotation(combo));
+            else
+                Game.Instance.NextLevel();
         } else
         {
             if (ComboType.PlayerGetEnemyHealth == combo)

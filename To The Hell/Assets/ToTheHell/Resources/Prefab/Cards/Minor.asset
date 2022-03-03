@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8580dff81e344a544a7df6e9278f3b63, type: 3}
   m_Name: Minor
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: e8cb90dcaee5bf247b3a419b4c1eddba, type: 3}
+  Icon: {fileID: 21300000, guid: f4f3d29ab3f6c5a4cb259123af557d2d, type: 3}
+  Level: 1
   Name: Minor
-  Desription: "\u0423\u0440\u043E\u043D: -5 \u042D\u0432\u0440\u0435\u0434\u0438\u043A\u0430:
-    -3"
   Shield: 0
   Health: 0
   Damage: 5

@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
-public class CardView : MonoBehaviour
+public class CardView : MonoBehaviour, IPointerClickHandler
 {
     [Header("Main")]
     public CardData data;
@@ -77,5 +78,14 @@ public class CardView : MonoBehaviour
             description.GetComponentInChildren<Text>().text = data.Shield.ToString();
             description.GetComponentInChildren<Text>().color = backgroundCard.sprite == withAttackSprite ? new Color32(162, 162, 162, 255) : new Color32(24, 24, 24, 255);
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (CardLogic.Instance.AttackEnemy)
+            CardLogic.Instance.AttackEnemy = false;
+
+        CardLogic.Instance.InitializeCardWithData(data);
+        CardLogic.Instance.DestroyViewCard(this.gameObject);
     }
 }

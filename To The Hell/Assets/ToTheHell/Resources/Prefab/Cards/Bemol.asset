@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8580dff81e344a544a7df6e9278f3b63, type: 3}
   m_Name: Bemol
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 7c9d64783cfe79e468ae71bb0a39c672, type: 3}
+  Icon: {fileID: 21300000, guid: 7c0c44aeb3c1a0b4489ac1c2cd0f216c, type: 3}
+  Level: 1
   Name: Bemol
-  Desription: " \u042D\u0432\u0440\u0435\u0434\u0438\u043A\u0430: +3"
   Shield: 0
   Health: 0
   Damage: 0

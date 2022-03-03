@@ -15,4 +15,4 @@ MonoBehaviour:
   Health: 55
   ShieldMax: 20
   MotionData: {fileID: 11400000, guid: e1a4a9a2b8702bc449e7d7b794eebbb9, type: 2}
-  Model: {fileID: 21300000, guid: d18d934d212d442ee90406fd28e6eef6, type: 3}
+  Model: {fileID: 21300000, guid: c1331a4deb21e244299b718cc67acc57, type: 3}

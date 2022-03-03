@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
 {
+    public static PlayerLogic Instance;
+
     [Header("Main")]
     [SerializeField] private PlayerData player;
     [SerializeField] private PlayerUI playerUI;
@@ -16,6 +18,18 @@ public class PlayerLogic : MonoBehaviour
     /// TakeDamage - урон, который проходит учитывает и щит.
     /// </summary>
     /// <param name="PlayerLogic"></param>
+    /// 
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+        {
+            Destroy(Instance.gameObject);
+            Instance = this;
+        }
+    }
 
     public void TakeDamage(int damage)
     {
