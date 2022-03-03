@@ -17,7 +17,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private CardLogic logic;
 
     [Header("Health")]
-    [SerializeField] private Image healthImage;
+    [SerializeField] private Slider healthBar;
     [SerializeField] private Image damageImage;
 
     [Header("Shield")]
@@ -116,7 +116,7 @@ public class PlayerUI : MonoBehaviour
             settingsMenu.SetActive(false);
         }
 
-        healthImage.fillAmount = Mathf.Clamp01((float)data.Health / data.HealthMax);
+        healthBar.value = Mathf.Clamp01((float)data.Health / data.HealthMax);
         
         if (data.Shield > 0)
         {

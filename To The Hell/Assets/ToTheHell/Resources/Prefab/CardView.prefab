@@ -400,6 +400,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 415e9d8d7094c1541b99eb874016fec8, type: 3}
   - {fileID: 21300000, guid: f675d08d6c10c7446a3fc1e93d76425e, type: 3}
   - {fileID: 21300000, guid: 7c0c44aeb3c1a0b4489ac1c2cd0f216c, type: 3}
+  - {fileID: 21300000, guid: 303563fe1d227134686ec5832110f4ac, type: 3}
 --- !u!1 &8049194231269743558
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 50
+    m_Left: 0
     m_Right: 0
     m_Top: 2
     m_Bottom: 0

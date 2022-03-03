@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
@@ -29,18 +29,38 @@ public class CardView : MonoBehaviour, IPointerClickHandler
 
     public void InitializeCard()
     {
-        backgroundCard.sprite = data.Damage > 0 ? withAttackSprite : withoutAttackSprite;
+        backgroundCard.sprite = data.Damage > 0 || data.Poison.damage > 0 ? withAttackSprite : withoutAttackSprite;
         evredikaCost.enabled = data.Name == "Bemol" ? false : true;
         if (data.Name == "Bemol") backgroundCard.sprite = bemoleSprite;
 
         levelCard.sprite = levelsSprite[data.Level - 1];
         nameCard.text = data.Name;
-
-        logoCard.sprite = data.Icon;
         evredikaCost.text = data.Evridika.ToString();
+        logoCard.sprite = data.Icon;
         evredikaCost.color = backgroundCard.sprite != withAttackSprite ? new Color32(162, 162, 162, 255) : new Color32(24, 24, 24, 255);
         levelCard.color = backgroundCard.sprite != withAttackSprite ? new Color32(162, 162, 162, 255) : new Color32(24, 24, 24, 255);
         nameCard.color = backgroundCard.sprite != withAttackSprite ? new Color32(162, 162, 162, 255) : new Color32(24, 24, 24, 255);
+
+        if (data.Poison.damage > 0)
+        {
+            var description = Instantiate(infoPrefab);
+            description.transform.SetParent(infoTransform);
+            description.GetComponent<Image>().sprite = descriptionSprites[3];
+            description.transform.localScale = Vector3.one;
+
+            foreach (var t in description.GetComponentsInChildren<Text>())
+            {
+                if (t.name != "Poison")
+                    t.text = data.Poison.damage.ToString();
+                else
+                {
+                    t.text = $"×{data.Poison.count}";
+                    t.enabled = true;
+                }
+
+                t.color = backgroundCard.sprite == withAttackSprite ? new Color32(162, 162, 162, 255) : new Color32(24, 24, 24, 255);
+            }
+        }
 
         if (data.Evridika < 0)
         {

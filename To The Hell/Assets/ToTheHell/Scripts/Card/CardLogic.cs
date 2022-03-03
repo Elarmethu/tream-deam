@@ -44,6 +44,9 @@ public class CardLogic : MonoBehaviour
     public bool cardChoosed;
     public bool isChoosed;
 
+    [Header("Poison")]
+    public List<PoisonAttack> poisonAttacks;
+
     private void Awake()
     {
         if (Instance == null)
@@ -128,11 +131,11 @@ public class CardLogic : MonoBehaviour
             initializeData.Remove(card.data);
             DestroyCard(card.transform.parent.gameObject);
 
-            if (card.data.Damage > 0)
+            if (card.data.Damage > 0 || card.data.Poison.damage > 0)
             {
                 AttackEnemy = true;
                 attackCard = card.data;
-                PlayerDamage += card.data.Damage;
+                PlayerDamage = card.data.Damage > 0 ? PlayerDamage += card.data.Damage : PlayerDamage += card.data.Poison.damage;
             }
 
             useCardObj.Add(obj);
@@ -273,12 +276,24 @@ public class CardLogic : MonoBehaviour
             Player.GiveHealth(useCardData[0].Health);
             Player.GiveShield(useCardData[0].Shield);
 
-            if (useCardData[0].Damage > 0)
+            if (useCardData[0].Damage > 0 || useCardData[0].Poison.damage > 0)
             {
-                if(ComboType.GetBoostForAttack == combo) ChoosedEnemy[0].TakeDamage(Mathf.CeilToInt(useCardData[0].Damage * 1.5f));
-                else ChoosedEnemy[0].TakeDamage(useCardData[0].Damage);
-                ChoosedEnemy.RemoveAt(0);
+                if(useCardData[0].Damage > 0)
+                {
+                    if (ComboType.GetBoostForAttack == combo) ChoosedEnemy[0].TakeDamage(Mathf.CeilToInt(useCardData[0].Damage * 1.5f));
+                    else ChoosedEnemy[0].TakeDamage(useCardData[0].Damage);
+                    ChoosedEnemy.RemoveAt(0);
+                    Debug.Log("BB");
+                }
+                else if(useCardData[0].Poison.damage > 0)
+                {
+                    PoisonAttack attack = new PoisonAttack(ChoosedEnemy[0], useCardData[0].Poison.count, useCardData[0]);
+                    poisonAttacks.Add(attack);
+                    ChoosedEnemy.RemoveAt(0);
+                    Debug.Log("QQ");
+                }
             }
+            Debug.Log(useCardData[0].Poison.damage);
 
             Player.TakeEvridikaDamage(useCardData[0].Evridika);
             if (Player.GetEvridika() <= 0)
@@ -301,10 +316,24 @@ public class CardLogic : MonoBehaviour
                 Player.GiveHealth(PlayerDamage);
 
             comboChoosed = combo;
-            if(Game.Instance.enemyLogic.EnemiesDeadCheck())
+            
+            if (Game.Instance.enemyLogic.EnemiesDeadCheck())
                 Game.Instance.NextLevel();
             else
+            {
                 Game.Instance.NextMotion();
+                
+                for(int i = 0; i < poisonAttacks.Count; i++)
+                {
+                    if (poisonAttacks[i].motionCount <= 0)
+                        poisonAttacks.Remove(poisonAttacks[i]);
+                    else
+                    {
+                        poisonAttacks[i].enemy.TakeDamage(poisonAttacks[i].poison.Poison.damage);
+                        poisonAttacks[i].motionCount -= 1;
+                    }                            
+                }         
+            }
         }
     } 
     #endregion
@@ -317,4 +346,19 @@ public enum ComboType
     NotShieldReset = 1,
     PlayerGetEnemyHealth = 2,
     Nothing = 3
+}
+
+[System.Serializable]
+public class PoisonAttack
+{
+    public Enemy enemy;
+    public int motionCount;
+    public CardData poison;
+
+    public PoisonAttack(Enemy _enemy, int count, CardData data)
+    {
+        enemy = _enemy;
+        motionCount = count;
+        poison = data;   
+    }
 }
